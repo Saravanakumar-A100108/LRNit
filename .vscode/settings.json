@@ -1,0 +1,13 @@
+{
+  "deno.enable": true,
+  "deno.enablePaths": [
+    "./supabase/functions"
+  ],
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, .vscode, .eslint.config.*, tsconfig.*, vite.config.*, tailwind.config.*, postcss.config.*, components.json",
+    ".env": ".env.*",
+    "index.html": "favicon.ico, robots.txt"
+  }
+}
