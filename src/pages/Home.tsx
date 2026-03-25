@@ -95,7 +95,7 @@ const Home = () => {
             Empowering Tech Leaders
           </div>
           <h1 className="text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tight mb-6 leading-[1.1] animate-title-drop">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary text-glow bg-[length:200%_auto] animate-shimmer">LRN</span><span className="text-foreground">it</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary glow-text bg-[length:200%_auto] animate-shimmer">LRN</span><span className="text-foreground">it</span>
           </h1>
           <p className="text-xl md:text-2xl font-semibold tracking-wide text-foreground/80 mb-6 animate-subtitle-rise font-sans">
             Learn. Build. Lead.

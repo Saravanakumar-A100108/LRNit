@@ -28,7 +28,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={`text-[13px] font-medium transition-all duration-300 hover:text-primary relative group ${location.pathname === link.to ? "text-primary text-glow" : "text-muted-foreground"
+              className={`text-[13px] font-medium transition-all duration-300 hover:text-primary relative group ${location.pathname === link.to ? "text-primary glow-text" : "text-muted-foreground"
                 }`}
             >
               {link.label}
