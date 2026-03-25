@@ -1,0 +1,34 @@
+FILE: C:\LRNit\src\components\ImageUpload.tsx
+  L43 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+FILE: C:\LRNit\src\components\ui\badge.tsx
+  L29 [react-refresh/only-export-components] Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+FILE: C:\LRNit\src\components\ui\button.tsx
+  L47 [react-refresh/only-export-components] Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+FILE: C:\LRNit\src\components\ui\form.tsx
+  L129 [react-refresh/only-export-components] Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+FILE: C:\LRNit\src\components\ui\navigation-menu.tsx
+  L111 [react-refresh/only-export-components] Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+FILE: C:\LRNit\src\components\ui\sidebar.tsx
+  L636 [react-refresh/only-export-components] Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+FILE: C:\LRNit\src\components\ui\sonner.tsx
+  L27 [react-refresh/only-export-components] Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+FILE: C:\LRNit\src\components\ui\toggle.tsx
+  L37 [react-refresh/only-export-components] Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+FILE: C:\LRNit\src\pages\Admin.tsx
+  L138 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L153 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L238 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L253 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L339 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L354 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L415 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L445 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L460 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+FILE: C:\LRNit\supabase\functions\chat\index.ts
+  L50 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L88 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+FILE: C:\LRNit\supabase\functions\sync-knowledge\index.ts
+  L30 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L37 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L44 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.
+  L81 [@typescript-eslint/no-explicit-any] Unexpected any. Specify a different type.

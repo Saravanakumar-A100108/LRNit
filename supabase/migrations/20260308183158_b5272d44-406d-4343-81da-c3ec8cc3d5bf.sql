@@ -1,0 +1,1 @@
+ALTER TABLE public.programs ADD COLUMN enroll_link text NOT NULL DEFAULT '';
