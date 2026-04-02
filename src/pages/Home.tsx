@@ -1,42 +1,55 @@
+import * as React from "react";
 import Navbar from "@/components/Navbar";
 import GalleryCarousel from "@/components/GalleryCarousel";
 import TeamMarquee from "@/components/TeamMarquee";
 import ContactForm from "@/components/ContactForm";
 import { Code, Calendar, Users, Mail, MapPin, Megaphone, Instagram, Linkedin, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { motion, Variants } from "framer-motion";
 
-const iconMap: Record<string, React.FC<{ className?: string }>> = { Code, Calendar, Users };
-
-const useScrollReveal = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("animate-scroll-reveal");
-          el.classList.remove("opacity-0");
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return ref;
+const iconMap: Record<string, React.FC<{ className?: string }>> = { 
+  Code, 
+  Calendar, 
+  Users, 
+  Mail, 
+  MapPin, 
+  Megaphone, 
+  Instagram, 
+  Linkedin, 
+  ArrowRight 
 };
 
-const RevealSection = ({ children, className = "", delay = "" }: { children: React.ReactNode; className?: string; delay?: string }) => {
-  const ref = useScrollReveal();
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const RevealSection = ({ children, className = "", index = 0 }: { children: React.ReactNode; className?: string; index?: number }) => {
   return (
-    <div ref={ref} className={`opacity-0 ${className} ${delay}`}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] as const } }
+      }}
+      className={className}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 };
 
@@ -76,42 +89,77 @@ const Home = () => {
   });
 
   return (
-    <div className="min-h-screen animate-page-enter relative overflow-hidden bg-dot-pattern">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className="min-h-screen relative overflow-hidden bg-dot-pattern"
+    >
       {/* Decorative Background Elements */}
-      <div className="absolute top-[10%] -left-20 w-72 h-72 bg-primary/10 rounded-full blur-[100px] animate-blob pointer-events-none" />
-      <div className="absolute top-[40%] -right-20 w-96 h-96 bg-primary/5 rounded-full blur-[120px] animate-blob [animation-delay:2s] pointer-events-none" />
-      <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] animate-blob [animation-delay:4s] pointer-events-none" />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.1, 1],
+          opacity: [0.15, 0.3, 0.15],
+          rotate: [0, 90, 0]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[10%] -left-20 w-72 h-72 bg-primary/20 rounded-full blur-[100px] pointer-events-none" 
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.25, 0.1],
+          rotate: [0, -90, 0]
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="absolute top-[40%] -right-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" 
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.15, 1],
+          opacity: [0.1, 0.2, 0.1],
+        }}
+        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        className="absolute bottom-[20%] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[150px] pointer-events-none" 
+      />
 
       <Navbar />
 
       {/* Hero */}
       <section className="pt-28 md:pt-40 pb-16 md:pb-28 px-4 md:px-6 relative z-10">
-        <div className="container mx-auto text-center max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 animate-fade-in hover:bg-primary/20 transition-colors cursor-default">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+          className="container mx-auto text-center max-w-3xl"
+        >
+          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 hover:bg-primary/20 transition-colors cursor-default">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
             Empowering Tech Leaders
-          </div>
-          <h1 className="text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tight mb-6 leading-[1.1] animate-title-drop">
+          </motion.div>
+          <motion.h1 variants={fadeInUp} className="text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tight mb-6 leading-[1.1]">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary glow-text bg-[length:200%_auto] animate-shimmer">LRN</span><span className="text-foreground">it</span>
-          </h1>
-          <p className="text-xl md:text-2xl font-semibold tracking-wide text-foreground/80 mb-6 animate-subtitle-rise font-sans">
+          </motion.h1>
+          <motion.p variants={fadeInUp} className="text-xl md:text-2xl font-semibold tracking-wide text-foreground/80 mb-6 font-sans">
             Learn. Build. Lead.
-          </p>
-          <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed animate-subtitle-rise">
+          </motion.p>
+          <motion.p variants={fadeInUp} className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Empowering the next generation of tech leaders through immersive learning, real-world building, and transformative leadership.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-4 animate-button-fade">
-            <Link
-              to="/programs"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-all active:scale-95"
-            >
-              Explore Events <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
+          </motion.p>
+          <motion.div variants={fadeInUp} className="mt-10 flex items-center justify-center gap-4">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/programs"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all"
+              >
+                Explore Events <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Announcements */}
@@ -132,10 +180,13 @@ const Home = () => {
             </div>
             <div className="space-y-3">
               {announcements.map((a, i) => (
-                <RevealSection key={a.id} delay={`stagger-${(i % 6) + 1}`}>
-                  <div className="flex items-start gap-4 p-5 rounded-lg border border-border bg-card/40 backdrop-blur-sm hover:bg-card/60 transition-all hover:scale-[1.01] hover:border-primary/20 group glass-card">
-                    <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      <Megaphone className="w-4 h-4 text-primary" />
+                <RevealSection key={a.id} index={i}>
+                  <motion.div 
+                    whileHover={{ y: -4, scale: 1.01 }}
+                    className="flex items-start gap-4 p-5 rounded-lg border border-border bg-card/40 backdrop-blur-md transition-all hover:border-primary/40 hover:shadow-[0_8px_30px_hsl(var(--primary)/0.15)] group glass-card"
+                  >
+                    <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                      <Megaphone className="w-4 h-4 text-primary group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-foreground mb-1 text-sm group-hover:text-primary transition-colors">{a.title}</h3>
@@ -144,7 +195,7 @@ const Home = () => {
                         {new Date(a.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 </RevealSection>
               ))}
             </div>
@@ -171,24 +222,27 @@ const Home = () => {
             {programs.map((program, i) => {
               const Icon = iconMap[program.icon] || Code;
               return (
-                <RevealSection key={program.id} delay={`stagger-${(i % 6) + 1}`}>
+                <RevealSection key={program.id} index={i}>
                   <Link to="/programs" className="block h-full group">
-                    <div className="h-full flex flex-col items-start p-6 rounded-lg border border-border bg-card/40 backdrop-blur-sm hover:bg-card/60 transition-all hover:scale-[1.02] hover:border-primary/30 glass-card">
+                    <motion.div 
+                      whileHover={{ y: -8 }}
+                      className="h-full flex flex-col items-start p-6 rounded-lg border border-border bg-card/40 backdrop-blur-md transition-all hover:border-primary/40 hover:shadow-[0_8px_40px_hsl(var(--primary)/0.2)] glass-card"
+                    >
                       {program.photo ? (
-                        <div className="w-12 h-12 rounded-md overflow-hidden mb-4 group-hover:scale-105 transition-transform">
+                        <div className="w-12 h-12 rounded-md overflow-hidden mb-4 group-hover:scale-110 transition-transform duration-500">
                           <img src={program.photo} alt={program.title} className="w-full h-full object-cover" />
                         </div>
                       ) : (
-                        <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                          <Icon className="w-5 h-5 text-primary" />
+                        <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/30 transition-all duration-300">
+                          <Icon className="w-5 h-5 text-primary group-hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.8)]" />
                         </div>
                       )}
                       <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{program.title}</h3>
                       <p className="text-muted-foreground text-sm leading-relaxed flex-1">{program.description}</p>
-                      <span className="mt-4 text-xs font-medium text-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                        Learn more <ArrowRight className="w-3 h-3" />
+                      <span className="mt-4 text-xs font-medium text-primary flex items-center gap-1">
+                        <span className="group-hover:mr-1 transition-all">Learn more</span> <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                       </span>
-                    </div>
+                    </motion.div>
                   </Link>
                 </RevealSection>
               );
@@ -204,7 +258,9 @@ const Home = () => {
             <SectionLabel>Moments</SectionLabel>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">Gallery</h2>
           </div>
-          <GalleryCarousel />
+          <motion.div whileHover={{ scale: 1.01 }} className="transition-transform">
+            <GalleryCarousel />
+          </motion.div>
         </RevealSection>
       </section>
 
@@ -250,9 +306,19 @@ const Home = () => {
                   { icon: Mail, label: "Email", value: "contact.lrnit@gmail.com", href: "mailto:contact.lrnit@gmail.com" },
                   { icon: Instagram, label: "Instagram", value: "lrnit_org", href: "https://www.instagram.com/lrnit_org?igsh=MTN3dGt4bXRzaGxoYg==" },
                   { icon: Linkedin, label: "LinkedIn", value: "LRNit", href: "https://www.linkedin.com/company/lrnitorg/" },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                ].map((item, i) => (
+                  <motion.div 
+                    key={item.label} 
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={{
+                      hidden: { opacity: 0, x: -20 },
+                      visible: { opacity: 1, x: 0, transition: { delay: i * 0.1 } }
+                    }}
+                    className="flex items-start gap-3"
+                  >
+                    <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5 hover:bg-primary/20 hover:scale-110 transition-all duration-300">
                       <item.icon className="w-3.5 h-3.5 text-primary" />
                     </div>
                     <div>
@@ -265,17 +331,22 @@ const Home = () => {
                         <p className="text-muted-foreground text-sm">{item.value}</p>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
-            <ContactForm />
+            <motion.div 
+              whileHover={{ scale: 1.01 }} 
+              className="bg-card/40 backdrop-blur-md rounded-xl border border-border p-6 shadow-xl hover:border-primary/20 transition-all"
+            >
+              <ContactForm />
+            </motion.div>
           </div>
         </RevealSection>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8 px-6">
+      <footer className="border-t border-border py-8 px-6 mt-12 bg-card/20 border-t-white/10">
         <div className="container mx-auto max-w-4xl flex items-center justify-between">
           <span className="text-sm text-muted-foreground">© {new Date().getFullYear()} LRNit. All rights reserved.</span>
           <Link
@@ -288,7 +359,7 @@ const Home = () => {
           </Link>
         </div>
       </footer>
-    </div>
+    </motion.div>
   );
 };
 

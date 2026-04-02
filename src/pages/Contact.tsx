@@ -1,3 +1,4 @@
+import * as React from "react";
 import Navbar from "@/components/Navbar";
 import ContactForm from "@/components/ContactForm";
 import { Mail, Linkedin, Instagram } from "lucide-react";

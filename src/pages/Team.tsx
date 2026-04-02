@@ -1,3 +1,4 @@
+import * as React from "react";
 import Navbar from "@/components/Navbar";
 import { Linkedin } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
