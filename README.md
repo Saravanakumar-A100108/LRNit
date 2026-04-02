@@ -1,8 +1,10 @@
 # 🌟 LRNit
 
+**🔗 Live Website:** [https://lrnit.vercel.app](https://lrnit.vercel.app)
+
 **Learn. Build. Lead.**
 
-LRNit is a comprehensive platform dedicated to empowering the next generation of tech leaders through immersive learning experiences, real-world building opportunities, and transformative leadership training.
+Welcome to the official repository for **LRNit**, a dynamic student organization dedicated to empowering the next generation of tech leaders. Our mission is to provide an immersive platform where students can learn through practical experiences, build real-world skills, and grow into confident leaders in the tech industry.
 
 ---
 
@@ -32,7 +34,7 @@ LRNit is a comprehensive platform dedicated to empowering the next generation of
 ### Backend & Infrastructure
 - **Base**: [Supabase](https://supabase.com/) (PostgreSQL Database, Authentication, and Storage)
 - **Logic**: Supabase Edge Functions (Deno)
-- **Deployment**: Git-integrated workflow
+- **Deployment**: Vercel & GitHub Actions
 
 ## 📁 Project Structure
 
@@ -60,8 +62,8 @@ LRNit is a comprehensive platform dedicated to empowering the next generation of
 
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/Saravanakumar-A100108/LRNit.Org.git
-   cd LRNit.Org
+   git clone https://github.com/Saravanakumar-A100108/LRNit.git
+   cd LRNit
    ```
 
 2. **Install dependencies**:
@@ -77,4 +79,3 @@ LRNit is a comprehensive platform dedicated to empowering the next generation of
 ---
 
 © 2024 LRNit. All rights reserved.
-
